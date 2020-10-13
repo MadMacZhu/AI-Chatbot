@@ -38,7 +38,6 @@ Keras-Preprocessing==1.1.2
 kiwisolver==1.2.0
 Markdown==3.2.2
 MarkupSafe==1.1.1
-matplotlib==3.3.2
 mistune==0.8.4
 nbclient==0.5.0
 nbconvert==6.0.5
