@@ -1,19 +1,18 @@
 from flask import Flask, render_template, url_for, request
 import pandas as pd
 import numpy as np
-import time
-import nltk 
+import nltk
+import datetime
+import pytz 
 import random
 import pickle
 import json
 import re
-import os
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
-os.environ['TZ'] = "Asia/Beijing"
-time.tzset()
+time = datetime.datetime.now(tz=pytz.timezone('Asia/Shanghai'))
 
 with open("intents.json", 'rb') as file:
     data = json.load(file)
@@ -69,7 +68,7 @@ def predict(sentence):
 
 chats = []
 chats.clear()
-chats.append([["Hello!", time.strftime("%H:%M:%S", time.localtime())], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S", time.localtime())]])
+chats.append([["Hello!", time.strftime("%H:%M:%S")], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S")]])
 
 app = Flask(__name__)
 
@@ -78,16 +77,16 @@ def home():
 	return render_template('index.html', chats = chats)
 
 @app.route('/', methods=['POST'])
-def submit():
+def submit(chats = chats):
     if request.method == 'POST':
         message = request.form['message']
         new_chat = []
         income = []
         output = []
         income.append(message)
-        income.append(time.strftime("%H:%M:%S", time.localtime()))
+        income.append(time.strftime("%H:%M:%S"))
         output.append(predict(message))
-        output.append(time.strftime("%H:%M:%S", time.localtime()))
+        output.append(time.strftime("%H:%M:%S"))
         new_chat.append(income)
         new_chat.append(output)
         chats.append(new_chat)
@@ -97,7 +96,7 @@ def submit():
 def clear(chats = chats):
     if request.method == 'GET':
         chats.clear() 
-        chats.append([["Hello!", time.strftime("%H:%M:%S", time.localtime())], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S", time.localtime())]])
+        chats.append([["Hello!", time.strftime("%H:%M:%S")], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S")]])
     return render_template('index.html', chats = chats)
 
 if __name__ == '__main__':
