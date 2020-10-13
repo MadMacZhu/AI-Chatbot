@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Whatsapp UI</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class="container">
+		<div class="chat">
+			<div class="chat-header">
+				<div class="profile">
+					<div class="left">
+						<img src="{{ url_for('static', filename='img/arrow.png') }}" class="arrow">
+						<img src="{{ url_for('static', filename='img/pp.png') }}" class="pp">
+						<h2>Customer Agent</h2>
+						<span>online</span>
+					</div>
+					<div class="right">
+						<form action="{{ url_for('clear') }}" method="POST">
+							<button type="submit" class="btn btn-primary">
+								<img title="Reset Chat" src="{{ url_for('static', filename='img/reset.png') }}" class="icon">
+							</button>							
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="chat-box">
+				{% block content %}
+					{% for chat in chats %}
+					<div class="chat-r">
+						<div class="sp"></div>
+						<div class="mess mess-r">
+							<p>
+							   {{ chat[0][0] }}
+							</p>
+							<div class="check">
+								<span>{{ chat[0][1] }}</span>
+								<img class="mic" src="{{ url_for('static', filename='img/check-2.png') }}">
+							</div>
+						</div>
+					</div>
+					<div class="chat-l">
+						<div class="mess">
+							<p>
+								{{ chat[1][0] }}
+							</p>
+							<div class="check">
+								<span>{{ chat[1][1] }}</span>
+							</div>
+						</div>
+						<div class="sp"></div>
+					</div>
+					{% endfor %}
+				{% endblock %}
+
+				<br>
+				<br>
+				<br>
+				<br>
+				<div id="bottom"><p> </p></div>
+				<script>
+					document.getElementById('bottom').scrollIntoView();
+				</script>
+			</div>
+
+			<div class="chat-footer">
+				<form action="{{ url_for('submit') }}" method="POST">
+					<textarea name="message" placeholder="Type a message"></textarea>
+					<button type="submit" class="btn btn-primary">
+						<img class="mic" title="Submit" src="{{ url_for('static', filename='img/submit.png') }}">
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>
