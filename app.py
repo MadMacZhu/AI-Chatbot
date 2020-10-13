@@ -64,7 +64,9 @@ def predict(sentence):
 
     return random.choice(responses)
 
-chats = [[["Hello!", time.strftime("%H:%M:%S", time.localtime())], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S", time.localtime())]]]
+chats = []
+chats.clear()
+chats.append([["Hello!", time.strftime("%H:%M:%S", time.localtime())], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S", time.localtime())]])
 
 app = Flask(__name__)
 
