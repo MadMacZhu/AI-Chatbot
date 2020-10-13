@@ -7,10 +7,12 @@ import random
 import pickle
 import json
 import re
+import os
 import tensorflow as tf
 from tensorflow.keras.models import load_model
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
+os.environ['TZ'] = "Asia/Shanghai"
 
 with open("intents.json", 'rb') as file:
     data = json.load(file)
