@@ -17,7 +17,7 @@
 						<span>online</span>
 					</div>
 					<div class="right">
-						<form action="{{ url_for('clear') }}" method="POST">
+						<form action="{{ url_for('clear') }}" method="GET">
 							<button type="submit" class="btn btn-primary">
 								<img title="Reset Chat" src="{{ url_for('static', filename='img/reset.png') }}" class="icon">
 							</button>							

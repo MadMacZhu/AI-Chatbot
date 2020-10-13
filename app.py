@@ -12,7 +12,8 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from nltk.stem.lancaster import LancasterStemmer
 stemmer = LancasterStemmer()
-os.environ['TZ'] = "Asia/Shanghai"
+os.environ['TZ'] = "Asia/Beijing"
+time.tzset()
 
 with open("intents.json", 'rb') as file:
     data = json.load(file)
@@ -92,9 +93,9 @@ def submit():
         chats.append(new_chat)
     return render_template('index.html', chats = chats)
 
-@app.route('/home', methods=['POST'])
+@app.route('/home', methods=['GET'])
 def clear(chats = chats):
-    if request.method == 'POST':
+    if request.method == 'GET':
         chats.clear() 
         chats.append([["Hello!", time.strftime("%H:%M:%S", time.localtime())], ["Nice to have you here! How may I serve you?", time.strftime("%H:%M:%S", time.localtime())]])
     return render_template('index.html', chats = chats)
