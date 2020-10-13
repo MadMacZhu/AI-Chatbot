@@ -1,2 +1,2 @@
-tokenize
-stem
+punkt
+lancaster
